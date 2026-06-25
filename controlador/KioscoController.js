@@ -70,6 +70,7 @@ function mostrarTiquete(idTiquete){
         } else {
             departamento = 'Farmacia'
         }
+        
 
         let html = `
         <div id="tiquete">
