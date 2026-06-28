@@ -23,7 +23,7 @@ $('#ingresar').click( function(){
         if(respuesta.exito === false){
             $('#mensaje').text('Usuario o Contraseña incorrectos');
         } else {
-            window.location.href = ''
+            window.location.href = 'vista/panelTrabajador.html'
         }
     })
 })
