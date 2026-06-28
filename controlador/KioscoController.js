@@ -58,7 +58,7 @@ function mostrarTiquete(idTiquete){
         }
     }).done(function (respuesta){
 
-        let fila = respuesta[0];
+        let fila = respuesta;
         let departamento = '';
 
         if(fila.id_area == 1) {
@@ -82,7 +82,7 @@ function mostrarTiquete(idTiquete){
             <div id="info-tiquete">
                 <div class="info-item">
                     <span class="label">Posición en cola</span>
-                    <span class="value">1</span>
+                    <span class="value">${fila.posicion}</span>
                 </div>
                 
                 <div class="info-item no-border">
