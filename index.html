@@ -1,11 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+    <link rel="stylesheet" href="vista/css/login.css">
 </head>
+
 <body>
-    <a href="vista/kiosco.html">Entrar como paciente</a>
+    <div id="contenedor">
+        <label id="mensaje"></label>
+        <label for="usuario">Ingrese su usuario</label>
+        <input type="text" name="usuario" id="input-usuario" placeholder="Ej: 7-0321-0835">
+
+        <label for="input-contraseña">Ingrese su Contraseña</label>
+        <input type="password" name="password" id="input-contraseña">
+
+        <button class="botones" id="ingresar">Ingresar</button>
+
+        <label> O </label>
+        <a href="vista/kiosco.html" id="ingresar-paciente">Ingresar como paciente</a>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="controlador/loginController.js"></script>
+    sc
 </body>
+
 </html>
