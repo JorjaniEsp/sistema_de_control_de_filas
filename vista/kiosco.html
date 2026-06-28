@@ -11,7 +11,7 @@
 
 <body>
     <header id="encabezado">
-    
+
         <img src="./img/icon-clinica.png" alt="Clinica" id="icon-clinic">
         <div id="bienvenida">
             <h2>CLINICA INS</h2>
@@ -29,30 +29,35 @@
 
         <input type="text" name="nombre" id="nombre" placeholder="Ej: Jorjanie Espinoza">
 
-        <label id="lbl-input">Seleccione el servicio:</label>
-        <div id="contenedor-btnServicios">
+        <div id="bloque-servicios">
+            <label id="lbl-input">Seleccione el servicio:</label>
+            <div id="contenedor-btnServicios">
 
-            <button class="servicio" id="farmacia" data-id="4" data-prfijo="FA">
-                <img src="./img/farmacia.png" alt="Farmacia">
-                <span>FARMACIA</span>
-            </button>
+                <button class="servicio" id="farmacia" data-id="4" data-prfijo="FA">
+                    <img src="./img/farmacia.png" alt="Farmacia">
+                    <span>FARMACIA</span>
+                </button>
 
-            <button class="servicio" id="ventanilla" data-id="1" data-prfijo="VE">
-                <img src="./img/ventanilla.png" alt="Farmacia">
-                <span>VENTANILLA</span>
-            </button>
+                <button class="servicio" id="ventanilla" data-id="1" data-prfijo="VE">
+                    <img src="./img/ventanilla.png" alt="Farmacia">
+                    <span>VENTANILLA</span>
+                </button>
 
-            <button class="servicio" id="enfermeria" data-id="3" data-prfijo="EN">
-                <img src="./img/enfermeria.png" alt="Farmacia">
-                <span>ENFERMERIA</span>
-            </button>
+                <button class="servicio" id="enfermeria" data-id="3" data-prfijo="EN">
+                    <img src="./img/enfermeria.png" alt="Farmacia">
+                    <span>ENFERMERIA</span>
+                </button>
 
-            <button class="servicio" id="consultorio" data-id="2" data-prfijo="CO">
-                <img src="./img/consultorio.png" alt="Farmacia">
-                <span>CONSULTORIO</span>
-            </button>
+                <button class="servicio" id="consultorio" data-id="2" data-prfijo="CO">
+                    <img src="./img/consultorio.png" alt="Farmacia">
+                    <span>CONSULTORIO</span>
+                </button>
 
+            </div>
         </div>
+
+        <div id="contenedor-tiquete"></div>
+        <div id="mensaje-espera" style="display:none;"></div>
 
         <button id="CrearTiquete">SOLICITAR TURNO</button>
     </div>
@@ -61,5 +66,4 @@
     <script src="../model/KioscoModel.js"></script>
     <script src="../controlador/KioscoController.js"></script>
 </body>
-
 </html>

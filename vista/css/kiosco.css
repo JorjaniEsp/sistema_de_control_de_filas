@@ -5,7 +5,7 @@
 }
 
 body {
-    background-color: #f4f6f9;
+    background-color: #eef2f6;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     display: flex;
     flex-direction: column;
@@ -14,20 +14,20 @@ body {
     padding: 20px;
 }
 
-#icon-clinic{
+#icon-clinic {
     width: 100px;
     height: 100px;
 }
 
-#encabezado img{
-    background: #f4f6f9;
+#encabezado img {
+    background: #eef2f6;
 }
 
 #encabezado {
     display: flex;
-    align-items: center; 
+    align-items: center;
     justify-content: center;
-    gap: 15px; 
+    gap: 15px;
     margin-bottom: 24px;
     width: 100%;
     max-width: 420px;
@@ -35,8 +35,8 @@ body {
 
 #bienvenida {
     display: flex;
-    flex-direction: column; 
-    text-align: left; 
+    flex-direction: column;
+    text-align: left;
 }
 
 #encabezado h2 {
@@ -50,19 +50,25 @@ body {
     font-size: 1rem;
     font-weight: 400;
     margin-top: 2px;
-    
 }
 
 #contenedor {
     background-color: white;
     border-radius: 20px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05); 
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
     width: 100%;
-    height: 500px;
-    max-width: 420px; 
+    min-height: 500px;
+    max-width: 420px;
     padding: 32px 24px;
     display: flex;
-    flex-direction: column; 
+    flex-direction: column;
+    align-items: center;
+}
+
+#bloque-servicios {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
     align-items: center;
 }
 
@@ -111,8 +117,8 @@ body {
 }
 
 #icon-usuario {
-    height: 45px;
-    width: 45px;
+    height: 32px;
+    width: 32px;
 }
 
 #farmacia {
@@ -131,13 +137,18 @@ body {
     background: rgb(76, 35, 239);
 }
 
-#contenedor label {
-    color: #2f3542;
-    font-size: 0.95rem;
-    font-weight: 600;
-    margin-bottom: 8px;
-    text-align: center;
+#contenedor {
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
     width: 100%;
+    min-height: 500px;
+    max-width: 420px;
+    padding: 32px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 #CrearTiquete {
@@ -146,15 +157,17 @@ body {
     margin: 40px;
     color: white;
     border: none;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
     background-color: rgb(36, 36, 218);
 }
 
 #CrearTiquete:disabled {
-    background-color: #dcdde1;
-    color: #a6b1b9;
+    background-color: #c2cbd6;
+    color: #6b7785;
     cursor: not-allowed;
 }
-
 
 #ico-input {
     display: flex;
@@ -173,12 +186,10 @@ body {
     margin-bottom: 20px;
 }
 
-#ico-Clinica {
+#contenedor-tiquete {
+    width: 100%;
     display: flex;
-}
-
-#bienvenida {
-    flex-direction: column;
+    justify-content: center;
 }
 
 #tiquete {
@@ -191,35 +202,37 @@ body {
     border-radius: 12px;
     border: 1px solid #e2e8f0;
     gap: 25px;
-    width: fit-content;
+    width: 100%;
 }
 
 #target {
     background-color: #0b79d0;
     color: white;
     border-radius: 10px;
-    padding: 25px;
+    padding: 20px 15px;
     text-align: center;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    min-width: 140px;
+    min-width: 165px;
 }
 
 #target h2 {
     margin: 0;
-    font-size: 45px;
+    font-size: 40px;
+    white-space: nowrap;
 }
 
 #target p {
     margin: 5px 0 0 0;
-    font-size: 18px;
+    font-size: 16px;
 }
 
 #info-tiquete {
     display: flex;
     flex-direction: column;
-    min-width: 180px;
+    min-width: 150px;
+    flex: 1;
 }
 
 .info-item {
@@ -241,12 +254,25 @@ body {
 }
 
 .value {
-    font-size: 22px;
+    font-size: 32px;
     font-weight: bold;
-    color: #0f172a;
+    color: #0b79d0;
 }
 
 .small-text {
     font-size: 14px;
-    font-weight: normal;
+    font-weight: 600;
+    color: #2f3542;
+}
+
+#mensaje-espera {
+    font-size: 14px;
+    color: #57606f;
+    text-align: center;
+    margin-top: 16px;
+    line-height: 1.4;
+}
+
+#mensaje-espera strong {
+    color: #0c2461;
 }

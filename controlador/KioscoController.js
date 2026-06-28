@@ -1,5 +1,6 @@
 let idAreaSeleccionada = null;
 let prefijoAreaSeleccionada = null;
+let mostrandoTiquete = false;
 
 $('#CrearTiquete').prop('disabled', true);
 
@@ -19,7 +20,7 @@ $('#nombre').on('input', function () {
 
 function verificarCampos() {
     let nombre = $('#nombre').val().trim();
-    
+
     if (nombre.length >= 3 && idAreaSeleccionada !== null) {
         $('#CrearTiquete').prop('disabled', false);
     } else {
@@ -28,49 +29,52 @@ function verificarCampos() {
 }
 
 $('#CrearTiquete').click(function () {
-    $(this).prop('disabled', true).text('Procesando...');
 
-    let nombrePaciente = $('#nombre').val().trim();
+    if (mostrandoTiquete) {
+        mostrarFormulario();
+        return;
+    }
+
+    $(this).prop('disabled', true).text('Procesando...');
 
     $.ajax({
         url: '../server/kiosco.php',
-        type: 'post',                      
-        dataType: 'json',                  
-        data: { 
-            accion : 1,
+        type: 'post',
+        dataType: 'json',
+        data: {
+            accion: 1,
             nombre: $('#nombre').val().trim(),
             area: prefijoAreaSeleccionada,
             idArea: idAreaSeleccionada
         }
-    }).done(function (respuesta){
+    }).done(function (respuesta) {
         mostrarTiquete(respuesta[0]);
     })
 });
 
-function mostrarTiquete(idTiquete){
+function mostrarTiquete(idTiquete) {
     $.ajax({
         url: '../server/kiosco.php',
-        type: 'post',                      
-        dataType: 'json',                  
-        data: { 
-            accion : 2,
+        type: 'post',
+        dataType: 'json',
+        data: {
+            accion: 2,
             idTiquete: idTiquete,
         }
-    }).done(function (respuesta){
+    }).done(function (respuesta) {
 
         let fila = respuesta;
         let departamento = '';
 
-        if(fila.id_area == 1) {
+        if (fila.id_area == 1) {
             departamento = 'Ventanilla'
-        } else if(fila.id_area == 2){
+        } else if (fila.id_area == 2) {
             departamento = 'Consultorio'
-        } else if(fila.id_area == 3){
+        } else if (fila.id_area == 3) {
             departamento = 'Enfermeria'
         } else {
             departamento = 'Farmacia'
         }
-        
 
         let html = `
         <div id="tiquete">
@@ -90,8 +94,30 @@ function mostrarTiquete(idTiquete){
                 </div>
             </div>
         </div>
-    `;
+        `;
 
-    $('#contenedor-btnServicios').html(html);
+        $('#contenedor-tiquete').html(html);
+        $('#bloque-servicios').hide();
+        $('#ico-input, #nombre').hide();
+
+        $('#mensaje-espera').html('Su tiquete fue generado. Diríjase a la <strong>pantalla de espera</strong> para ver cuándo será atendido.').show();
+
+        $('#CrearTiquete').prop('disabled', false).text('Entendido');
+        mostrandoTiquete = true;
     })
+}
+
+function mostrarFormulario() {
+    $('#contenedor-tiquete').empty();
+    $('#bloque-servicios').show();
+    $('#ico-input, #nombre').show();
+    $('#mensaje-espera').hide().empty();
+
+    $('#nombre').val('');
+    $('.servicio').removeClass('seleccionado');
+    idAreaSeleccionada = null;
+    prefijoAreaSeleccionada = null;
+
+    $('#CrearTiquete').prop('disabled', true).text('SOLICITAR TURNO');
+    mostrandoTiquete = false;
 }
