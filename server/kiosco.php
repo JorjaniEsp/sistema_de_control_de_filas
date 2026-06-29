@@ -36,7 +36,7 @@ function insertarPaciente($conexion, $nombre){
 }
 
 function crearTiquete($conexion,$idArea,$area,$idPaciente){
-    $num = obtenerUltimoId($conexion,$idArea) + 1;
+    $num = obtenerUltimoId($conexion,$area) + 1;
     $codigo = "";
     if ($num < 10) {
         $codigo = $area . "-00" . $num;
@@ -46,7 +46,7 @@ function crearTiquete($conexion,$idArea,$area,$idPaciente){
         $codigo = $area . "-" . $num;
     }
 
-    $sql = "INSERT INTO `tiquete`(`codigo`, `id_persona`, `estado_global`) VALUES ('$codigo','$idPaciente','EN_ESPERA')";
+    $sql = "INSERT INTO `tiquete`(`codigo`, `id_persona`, `estado_global`) VALUES ('$codigo','$idPaciente','En Espera')";
     mysqli_query($conexion,$sql);
 
     $idTiquete = mysqli_insert_id($conexion);
