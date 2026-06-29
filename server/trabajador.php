@@ -33,7 +33,7 @@ if($accion == 1){
 }
 
 function obtenerCola($conexion, $idArea){
-    $sql = "SELECT H.`id_tiquete`, T.`codigo`, H.`id_area`, H.`estado`, H.`fecha_creacion`, P.`nombre` FROM `historial_atencion` AS H
+    $sql = "SELECT H.`id_tiquete`, T.`codigo`, H.`id_area`, H.`estado`, H.`fecha_creacion`, P.`nombre`, (TIMESTAMPDIFF(MINUTE, H.`fecha_creacion`, NOW())) AS tiempoEspera FROM `historial_atencion` AS H
     INNER JOIN `tiquete` AS T ON H.`id_tiquete` = T.`id_tiquete` 
     INNER JOIN `persona` AS P ON T.`id_persona`= P.`id_persona`
     WHERE H.`id_area` = '". $idArea ."' AND H.`estado` = 'En Espera'
@@ -54,12 +54,9 @@ function obtenerTurnoActual($conexion,$idArea,$idTrabajador){
     WHERE H.`id_area` = '". $idArea ."' AND H.`estado` = 'En Atencion' AND H.`id_trabajador` = '". $idTrabajador ."'";
 
     $datos = mysqli_query($conexion,$sql);
-    if(mysqli_num_rows($datos) == 0){
-        return [ "enAtencion" => false];
-    } else {
-        $array = mysqli_fetch_array($datos);
-        return $array;
-    }
+    $array = mysqli_fetch_array($datos);
+    
+    return $array;
 }
 
 function llamarSiguiente($conexion, $idArea, $idTrabajador){
@@ -70,19 +67,14 @@ function llamarSiguiente($conexion, $idArea, $idTrabajador){
     $datos = mysqli_query($conexion, $sql);
 
     if(mysqli_num_rows($datos) == 0){
-        return [ "respuesta" => "No hay más pacientes en cola"];
+        return [ "respuesta" => false];
     } else {
         $fila = mysqli_fetch_array($datos);
         $idHistorial = $fila['id_historial'];
         $sql = "UPDATE `historial_atencion` SET `id_trabajador`='". $idTrabajador ."',`estado`='En Atencion',`fecha_inicio_atencion`= NOW() WHERE id_historial = ".$idHistorial;
         mysqli_query($conexion, $sql);
 
-        return [
-            "idHistorial" => $fila['id_historial'],
-            "codigo" =>  $fila['codigo'],
-            "nombre" =>  $fila['nombre'],
-            "estado" =>  $fila['estado']
-        ];
+        return ["respuesta" => true];
     }
 }
 

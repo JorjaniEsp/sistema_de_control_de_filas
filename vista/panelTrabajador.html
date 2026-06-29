@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/trabajador.css">
     <title>Mesa de Trabajo</title>
 </head>
+
 <body>
-    
+
     <div id="sidebar">
         <div id="logo-clinica">
             <img src="./img/icon-clinica.png" alt="INS" id="ico-clinica">
@@ -27,7 +29,32 @@
         <p>Bienvenido</p>
     </div>
 
+    <div id="estadisticas">
+
+    </div>
+
+    <div id="cola">
+        <h2>Cola de espera</h2>
+        <table id="tabla-cola">
+            <thead>
+                <tr>
+                    <th>Posoción</th>
+                    <th>Codigo</th>
+                    <th>Paciente</th>
+                    <th>Estado</th>
+                </tr>
+            </thead>
+            <tbody id="cuerpo-cola">
+            </tbody>
+        </table>
+    </div>
+
+    <div id="turno-actual">
+        <h2>Turno actual</h2>        
+    </div>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="../controlador/TrabajadorController.js"></script>
 </body>
+
 </html>
