@@ -6,8 +6,7 @@ if(!isset($_SESSION['id_trabajador'])){
     exit;
 }
 
-$conexion = mysqli_connect("localhost","root","","sistema_gestion_filas")
-    or die(mysqli_connect_error());
+$conexion = mysqli_connect("localhost","root","","sistema_gestion_filas") or die(mysqli_connect_error());
 
 $idTrabajador = $_SESSION['id_trabajador'];
 
