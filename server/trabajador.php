@@ -20,17 +20,14 @@ if($accion == 1){
     echo json_encode($siguiente);
 
 } else if($accion == 4){
-    $idHistorial = $_POST['idHistorial'];
     $observacion = $_POST['observacion'];
-    $resultado = finalizar($conexion,$idHistorial,$observacion);
+    $resultado = finalizar($conexion,$idTrabajador,$idArea,$observacion);
     echo json_encode($resultado);
 
 } else if($accion == 5 ){
-    $idHistorial = $_POST['idHistorial'];
     $observacion = $_POST['observacion'];
-    $idTiquete = $_POST['idTiquete'];
     $idAreaDestino = $_POST['areaDestino'];
-    $resultado = derivar($conexion, $idHistorial, $idTiquete, $idAreaDestino, $observacion);
+    $resultado = derivar($conexion, $idArea, $idTrabajador, $idAreaDestino, $observacion);
 
     echo json_encode($resultado);
 }
@@ -89,7 +86,13 @@ function llamarSiguiente($conexion, $idArea, $idTrabajador){
     }
 }
 
-function finalizar($conexion,$idHistorial,$observacion){
+function finalizar($conexion,$idTrabajador, $idArea,$observacion){
+    $sql = "SELECT id_historial FROM historial_atencion 
+    WHERE id_area = '". $idArea ."' AND id_trabajador = '". $idTrabajador ."' AND estado = 'En Atencion'";
+    $datos = mysqli_query($conexion, $sql);
+    $fila = mysqli_fetch_array($datos);
+    $idHistorial = $fila['id_historial'];
+
     $sql = "UPDATE `historial_atencion` SET `estado`='Finalizado', `fecha_fin_atencion`= NOW() ,`observacion`='". $observacion ."' WHERE id_historial = ".$idHistorial;
     mysqli_query($conexion, $sql);
     $sql = "UPDATE `tiquete` AS T INNER JOIN `historial_atencion` AS H ON T.`id_tiquete` = H.`id_tiquete` SET T.`estado_global` = 'FINALIZADO' WHERE H.`id_historial` =". $idHistorial;
@@ -97,7 +100,14 @@ function finalizar($conexion,$idHistorial,$observacion){
     return ["exito" => true];
 }
 
-function derivar($conexion, $idHistorial, $idTiquete, $idAreaDestino, $observacion){
+function derivar($conexion, $idArea, $idTrabajador, $idAreaDestino, $observacion){
+    $sql = "SELECT `id_historial`,`id_tiquete` FROM historial_atencion 
+    WHERE id_area = '". $idArea ."' AND id_trabajador = '". $idTrabajador ."' AND estado = 'En Atencion'";
+    $datos = mysqli_query($conexion, $sql);
+    $fila = mysqli_fetch_array($datos);
+    $idHistorial = $fila['id_historial'];
+    $idTiquete = $fila['id_tiquete'];
+
     $sql = "UPDATE `historial_atencion` SET `estado`='Derivado', `fecha_fin_atencion`= NOW(),`observacion`='". $observacion ."' WHERE id_historial = ".$idHistorial;
     mysqli_query($conexion, $sql);
     $sql = "INSERT INTO `historial_atencion` (`id_tiquete`, `id_area`, `estado`) VALUES ('$idTiquete', '$idAreaDestino', 'En Espera')";
