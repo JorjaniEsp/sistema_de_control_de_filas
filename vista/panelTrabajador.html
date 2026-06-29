@@ -24,35 +24,43 @@
         </div>
     </div>
 
-    <div id="contenido">
-        <h1>Mesa de Trabajo</h1>
-        <p>Bienvenido</p>
+    <div id="main">
+        <div id="contenido">
+            <h1>Mesa de Trabajo</h1>
+            <p>Bienvenido</p>
+        </div>
+
+        <div id="contenedor-estadisticas">
+            <div id="tiempo-promedio-espera"></div>
+            <div id="tiempo-promedio-atencion"></div>
+            <div id="cant-espera"></div>
+            <div id="total-hoy"></div>
+        </div>
+
+        <div id="fila-panel">
+
+            <div id="cola">
+                <h2>Cola de espera</h2>
+                <table id="tabla-cola">
+                    <thead>
+                        <tr>
+                            <th>Posición</th>
+                            <th>Código</th>
+                            <th>Paciente</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cuerpo-cola">
+                    </tbody>
+                </table>
+            </div>
+
+            <div id="turno-actual">
+                <h2>Turno actual</h2>
+            </div>
+
+        </div>
     </div>
-
-    <div id="estadisticas">
-
-    </div>
-
-    <div id="cola">
-        <h2>Cola de espera</h2>
-        <table id="tabla-cola">
-            <thead>
-                <tr>
-                    <th>Posoción</th>
-                    <th>Codigo</th>
-                    <th>Paciente</th>
-                    <th>Estado</th>
-                </tr>
-            </thead>
-            <tbody id="cuerpo-cola">
-            </tbody>
-        </table>
-    </div>
-
-    <div id="turno-actual">
-        <h2>Turno actual</h2>        
-    </div>
-
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="../controlador/TrabajadorController.js"></script>
 </body>
