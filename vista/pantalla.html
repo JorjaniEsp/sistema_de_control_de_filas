@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/pantalla.css">
+    <title>Lobby</title>
+</head>
+
+<body>
+
+    <header id="encabezado-publico">
+        <h1>CLÍNICA INS LIMÓN</h1>
+        <div id="fecha-hora">
+            <span id="fecha"></span>
+            <span id="hora"></span>
+        </div>
+    </header>
+
+    <main id="fila-principal">
+        <div id="contenedor-tarjetas">
+        <div class="tarjeta-area" id="tarjeta-ventanilla">
+            <h3>VENTANILLA</h3>
+            <span class="codigo" id="codigo-ventanilla">Sin atención</span>
+        </div>
+
+        <div class="tarjeta-area" id="tarjeta-consultorio">
+            <h3>CONSULTORIO</h3>
+            <span class="codigo" id="codigo-consultorio">Sin atención</span>
+        </div>
+        
+        <div class="tarjeta-area" id="tarjeta-enfermeria">
+            <h3>ENFERMERÍA</h3>
+            <span class="codigo" id="codigo-enfermeria">Sin atención</span>
+        </div>
+        
+        <div class="tarjeta-area" id="tarjeta-farmacia">
+            <h3>FARMACIA</h3>
+            <span class="codigo" id="codigo-farmacia">Sin atención</span>
+        </div>
+        </div>
+
+        <div id="carrusel">
+            <img src="./img/img1.jpeg" class="slide activa">
+            <img src="./img/img2.png" class="slide">
+            <img src="./img/img3.jpg" class="slide">
+            <img src="./img/img4.jpg" class="slide">
+            <img src="./img/img6.jpg" class="slide">
+        </div>
+
+        </main>
+
+        
+
+    <footer id="pie-publico">
+        <p>Espere a que su número sea anunciado por pantalla.</p>
+    </footer>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="../controlador/PantallaController.js"></script>
+</body>
+
+</html>
