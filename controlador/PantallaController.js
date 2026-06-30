@@ -8,6 +8,7 @@ function anunciarNuevo(ultimo){
     if(ultimo == null){
         return;
     }
+
     if(ultimo.codigo == ultimoCodigoAnunciado){
         return;
     }
@@ -76,6 +77,8 @@ setInterval(function () {
     $('#fecha').text(`Fecha: ${dia}/${mes}/${año}`)
     $('#hora').text(`Hora: ${horas}:${minutos}`)
 }, 1000)
+
+
 
 let indiceActual = 0;
 

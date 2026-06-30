@@ -11,6 +11,7 @@ $('#cerrarSesion').click(function() {
         url : '../server/cerrarSesion.php',
         type: 'post',
         dataType: 'json'
+        
     }).done(function(respuesta){
         window.location.href = '../index.html';
     })

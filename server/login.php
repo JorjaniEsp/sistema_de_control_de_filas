@@ -1,8 +1,7 @@
 <?php
 session_start();
 
-$conexion = mysqli_connect("localhost","root","","sistema_gestion_filas")
-    or die(mysqli_connect_error());
+$conexion = mysqli_connect("localhost","root","","sistema_gestion_filas") or die(mysqli_connect_error());
 
 $usuario = $_POST['usuario'];
 $password = $_POST['password'];
