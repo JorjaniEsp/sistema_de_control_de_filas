@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -9,23 +9,40 @@
 </head>
 
 <body>
-    <div id="contenedor">
-        <label id="mensaje"></label>
-        <label for="usuario">Ingrese su usuario</label>
-        <input type="text" name="usuario" id="input-usuario" placeholder="Ej: 7-0321-0835">
 
-        <label for="input-contraseña">Ingrese su Contraseña</label>
-        <input type="password" name="password" id="input-contraseña">
+    <img src="vista/img/fondo.png" id="fondo">
 
-        <button class="botones" id="ingresar">Ingresar</button>
+    <div id="panel-izquierdo">
 
-        <label> O </label>
-        <a href="vista/kiosco.html" id="ingresar-paciente">Ingresar como paciente</a>
+        <div id="bienvenida">
+            <p id="bienvenido">Bienvenido al</p>
+            <h1 id="titulo">Sistema de Control de Filas</h1>
+            <div id="linea"></div>
+        </div>
+
+        <div id="contenedor">
+
+            <h2>Iniciar sesión</h2>
+
+            <label id="mensaje"></label>
+
+            <label for="input-usuario">Usuario</label>
+            <input type="text" name="usuario" id="input-usuario" placeholder="Ingrese su usuario">
+
+            <label for="input-contraseña">Contraseña</label>
+            <input type="password" name="password" id="input-contraseña" placeholder="Ingrese su contraseña">
+
+            <button class="botones" id="ingresar">Ingresar</button>
+
+            <hr>
+
+            <a href="vista/kiosco.html" id="ingresar-paciente">Entrar como paciente</a>
+        </div>
+
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="controlador/loginController.js"></script>
-    sc
 </body>
 
 </html>
