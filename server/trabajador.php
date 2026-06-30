@@ -35,8 +35,8 @@ if($accion == 1){
 
     array_push($estadisticas, obtenerEnEspera($conexion, $idArea));
     array_push($estadisticas, obtenerAtendidosHoy($conexion, $idArea));
-    array_push($estadisticas, obtenerTiempoPromedio($conexion, $idArea));
-    array_push($estadisticas, obtenerTotalHoy($conexion, $idArea));
+    array_push($estadisticas, obtenerTiempoPromedioEspera($conexion, $idArea));
+    array_push($estadisticas, obtenerTiempoPromedioAtencion($conexion, $idArea));
     
     echo json_encode($estadisticas);
 }
@@ -131,7 +131,7 @@ function obtenerAtendidosHoy($conexion, $idArea){
     return $fila['total'];
 }
 
-function obtenerTiempoPromedio($conexion, $idArea){
+function obtenerTiempoPromedioEspera($conexion, $idArea){
     $sql = "SELECT AVG(TIMESTAMPDIFF(MINUTE, fecha_creacion, fecha_inicio_atencion)) as promedio 
     FROM historial_atencion 
     WHERE id_area = ". $idArea ." AND estado = 'Finalizado' 
@@ -146,6 +146,15 @@ function obtenerTotalHoy($conexion, $idArea){
     AND DATE(fecha_creacion) = CURDATE()";
     $fila = mysqli_fetch_array(mysqli_query($conexion, $sql));
     return $fila['total'];
+}
+
+function obtenerTiempoPromedioAtencion($conexion, $idArea){
+    $sql = "SELECT AVG(TIMESTAMPDIFF(MINUTE, fecha_inicio_atencion, fecha_fin_atencion)) as promedio 
+    FROM historial_atencion 
+    WHERE id_area = ". $idArea ." AND estado = 'Finalizado' 
+    AND DATE(fecha_fin_atencion) = CURDATE()";
+    $fila = mysqli_fetch_array(mysqli_query($conexion, $sql));
+    return round($fila['promedio'] ?? 0);
 }
 
 ?>

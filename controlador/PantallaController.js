@@ -14,14 +14,26 @@ function cargarTurnosPublicos(){
         actualizarTarjeta('enfermeria', respuesta.enfermeria);
         actualizarTarjeta('farmacia', respuesta.farmacia);
 
+        if(respuesta.ultimo == null) {
+            $('#codigo-ultimo').text('--');
+            $('#detalle-ultimo').text('Sin tiquetes recientes');
+        } else {
+            if($('#codigo-ultimo').text() !== respuesta.ultimo.codigo) {
+                $('#tarjeta-ultimo-llamado').fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
+            }
+            
+            $('#codigo-ultimo').text(respuesta.ultimo.codigo);
+            $('#detalle-ultimo').text(`${respuesta.ultimo.area} → ${respuesta.ultimo.trabajador}`);
+        }
     })
 }
 
-function actualizarTarjeta(area, codigo){
-    if(codigo == null){
-        $('#codigo-' + area).text('Sin atención');
+function actualizarTarjeta(area, info){
+    let elemento = $('#codigo-' + area);
+    if(info == null){
+        elemento.html('Sin atención');
     } else {
-        $('#codigo-' + area).text(codigo);
+        elemento.html(`${info.codigo} <span class="punto-atencion">→ ${info.trabajador}</span>`);
     }
 }
 
@@ -29,35 +41,29 @@ setInterval(function(){
     cargarTurnosPublicos();
 }, 4000);
 
-console.log(new Date())
-
 setInterval(function () {
     const ahora = new Date();
-
     const dia = ahora.getDate();         
     const mes = ahora.getMonth() + 1;    
     const año = ahora.getFullYear();     
-
     const horas = ahora.getHours();      
     const minutos = ahora.getMinutes();  
-    const segundos = ahora.getSeconds(); 
 
     $('#fecha').text(`Fecha: ${dia}/${mes}/${año}`)
-    $('#hora').text(`Hora: ${horas}:${minutos}:${segundos}`)
+    $('#hora').text(`Hora: ${horas}:${minutos}`)
 }, 1000)
 
 let indiceActual = 0;
 
 function rotarCarrusel(){
     let slides = $('#carrusel .slide');
-    
+
     slides.eq(indiceActual).removeClass('activa');
-    
     indiceActual = indiceActual + 1;
+    
     if(indiceActual >= slides.length){
         indiceActual = 0;
     }
-    
     slides.eq(indiceActual).addClass('activa');
 }
 

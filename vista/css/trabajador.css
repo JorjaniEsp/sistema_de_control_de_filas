@@ -252,7 +252,6 @@ body {
 #btn-opciones button {
     flex: 1;
     padding: 14px;
-    border: none;
     border-radius: 10px;
     font-weight: bold;
     cursor: pointer;
@@ -261,12 +260,13 @@ body {
 #finalizar {
     background-color: #1a936f;
     color: white;
+    border: none;
 }
 
 #derivar {
     background-color: white;
     color: #0c2461;
-    border-color: #0c2461;
+    border: 2px solid #0c2461 !important;
 }
 
 #primera-fila {

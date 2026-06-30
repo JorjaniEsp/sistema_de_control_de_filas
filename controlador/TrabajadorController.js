@@ -35,6 +35,7 @@ function verificarSesion(){
         idArea = respuesta.idArea;
         cargarTurnoActual()
         cargarCola();
+        cargarEstadisticas();
     })
 }
 
@@ -92,7 +93,10 @@ function cargarTurnoActual(){
     }).done(function (respuesta) {
         if (respuesta === null) {
             console.log("entro al if")
-            $('#turno-actual').html(`<button id="llamar-siguiente">Llamar Siguiente</button>`);
+            let html = `
+            <h2>No hay pacientes en atención</h2>
+            <button id="llamar-siguiente">Llamar Siguiente</button>`
+            $('#turno-actual').html(html);
             $('#llamar-siguiente').click(function () {
                 llamarSiguiente();
             })
@@ -219,6 +223,7 @@ function derivar(){
 
 setInterval(function(){
     cargarCola();
+    cargarEstadisticas();
 }, 5000);
 
 
@@ -236,3 +241,21 @@ setInterval(function () {
     $('#fecha').text(`Fecha: ${dia}/${mes}/${año}`)
     $('#hora').text(`Hora: ${horas}:${minutos}`)
 }, 1000)
+
+function cargarEstadisticas() {
+    $.ajax({
+        url: '../server/trabajador.php',
+        type: 'post',
+        dataType: 'json',
+        data: {
+            accion: 6
+        }
+    }).done(function(respuesta) {
+        
+        $('#cant-espera').text(respuesta[0]);
+        $('#cant-atendidos').text(respuesta[1]);
+        
+        $('#tiempo-promedio-espera').html(`${respuesta[2]} <span>min</span>`);
+        $('#tiempo-promedio-atencion').html(`${respuesta[3]} <span>min</span>`);
+    });
+}
