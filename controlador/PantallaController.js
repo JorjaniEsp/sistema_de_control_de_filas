@@ -2,6 +2,27 @@ $(document).ready(function(){
     cargarTurnosPublicos();
 });
 
+let ultimoCodigoAnunciado = null;
+
+function anunciarNuevo(ultimo){
+    if(ultimo == null){
+        return;
+    }
+    if(ultimo.codigo == ultimoCodigoAnunciado){
+        return;
+    }
+
+    ultimoCodigoAnunciado = ultimo.codigo;
+
+    let texto = `Tiquete ${ultimo.codigo}, diríjase a ${ultimo.area}`;
+    let mensaje = new SpeechSynthesisUtterance(texto);
+    mensaje.lang = 'es-ES';
+    mensaje.rate = 0.9;    
+    mensaje.pitch = 1;      
+    mensaje.volume = 1;
+    speechSynthesis.speak(mensaje);
+}
+
 function cargarTurnosPublicos(){
     $.ajax({
         url: '../server/publica.php',
@@ -25,8 +46,11 @@ function cargarTurnosPublicos(){
             $('#codigo-ultimo').text(respuesta.ultimo.codigo);
             $('#detalle-ultimo').text(`${respuesta.ultimo.area} → ${respuesta.ultimo.trabajador}`);
         }
+
+        anunciarNuevo(respuesta.ultimo);
     })
 }
+
 
 function actualizarTarjeta(area, info){
     let elemento = $('#codigo-' + area);

@@ -100,9 +100,12 @@ function mostrarTiquete(idTiquete) {
         $('#bloque-servicios').hide();
         $('#ico-input, #nombre').hide();
 
-        $('#mensaje-espera').html('Su tiquete fue generado. Diríjase a la <strong>pantalla de espera</strong> para ver cuándo será atendido.').show();
+        $('#mensaje-espera').html(`
+            Su tiquete fue generado. Diríjase a la <strong>pantalla de espera</strong> para ver cuándo será atendido.
+            <a href="pantalla.html" id="link-pantalla-publica">Ver pantalla de espera</a>`).show();
 
         $('#CrearTiquete').prop('disabled', false).text('Entendido');
+
         mostrandoTiquete = true;
     })
 }

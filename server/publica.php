@@ -18,7 +18,7 @@ function obtenerTurnoArea($conexion, $idArea){
     $sql = "SELECT T.`codigo`, TR.`nombre` AS trabajador, H.`fecha_inicio_atencion` 
     FROM `historial_atencion` AS H
     INNER JOIN `tiquete` AS T ON H.`id_tiquete` = T.`id_tiquete`
-    LEFT JOIN `trabajador` AS TR ON H.`id_trabajador` = TR.`id_trabajador`
+    INNER JOIN `trabajador` AS TR ON H.`id_trabajador` = TR.`id_trabajador`
     WHERE H.`id_area` = " . $idArea . " AND H.`estado` = 'En Atencion'
     ORDER BY H.`fecha_inicio_atencion` DESC LIMIT 1";
 
@@ -37,12 +37,12 @@ function obtenerTurnoArea($conexion, $idArea){
 }
 
 function obtenerUltimoGlobal($conexion){
-    $sql = "SELECT T.`codigo`, A.`nombre`,TR.`nombre` AS nombreArea
+    $sql =  "SELECT T.`codigo`, A.`nombre` AS nombreArea, TR.`nombre` AS nombreTrabajador
     FROM `historial_atencion` AS H
     INNER JOIN `tiquete` AS T ON H.`id_tiquete` = T.`id_tiquete`
     INNER JOIN `area` AS A ON H.`id_area` = A.`id_area`
     INNER JOIN `trabajador` AS TR ON H.`id_trabajador` = TR.`id_trabajador`
-    WHERE H.`estado` = 'En Atencion'
+    WHERE H.`estado` = 'En Atencion' OR H.`estado` = 'Finalizado' OR H.`estado` = 'Derivado'
     ORDER BY H.`fecha_inicio_atencion` DESC LIMIT 1";
 
     $datos = mysqli_query($conexion, $sql);
@@ -55,7 +55,7 @@ function obtenerUltimoGlobal($conexion){
     return [
         "codigo" => $fila['codigo'],
         "area" => $fila['nombreArea'],
-        "trabajador" => $fila['nombre']
+        "trabajador" => $fila['nombreTrabajador']
     ];
 }
 
