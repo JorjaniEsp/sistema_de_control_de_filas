@@ -26,27 +26,77 @@
 
     <div id="main">
         <div id="contenido">
-            <h1>Mesa de Trabajo</h1>
-            <p>Bienvenido</p>
+            <div id="saludo">
+                <h1>Mesa de Trabajo</h1>
+                <p>Bienvenido</p>
+            </div>
+
+            <div id="fecha-hora">
+                <img src="./img/calendario.png" alt="Fecha">
+                <span id="fecha"></span>
+                <img src="./img/reloj-de-pared.png" alt="Fecha">
+                <span id="hora"></span>
+            </div>
         </div>
 
         <div id="contenedor-estadisticas">
-            <div id="tiempo-promedio-espera"></div>
-            <div id="tiempo-promedio-atencion"></div>
-            <div id="cant-espera"></div>
-            <div id="total-hoy"></div>
+
+            <div class="card-stat" id="card-espera">
+                <div class="icono-stat" id="icono-espera">
+                    <img src="./img/grupo.png" alt="En espera">
+                </div>
+                <div class="texto-stat">
+                    <p class="titulo-stat">En espera</p>
+                    <h2 id="cant-espera">0</h2>
+                    <p class="subtitulo-stat">personas</p>
+                </div>
+            </div>
+
+            <div class="card-stat" id="card-atendidos">
+                <div class="icono-stat" id="icono-atendidos">
+                    <img src="./img/cheque.png" alt="Atendidos">
+                </div>
+                <div class="texto-stat">
+                    <p class="titulo-stat">Atendidos hoy</p>
+                    <h2 id="tiempo-promedio-atencion">0</h2>
+                    <p class="subtitulo-stat">turnos completados</p>
+                </div>
+            </div>
+
+            <div class="card-stat" id="card-tiempo">
+                <div class="icono-stat" id="icono-tiempo">
+                    <img src="./img/reloj.png" alt="Tiempo promedio">
+                </div>
+                <div class="texto-stat">
+                    <p class="titulo-stat">Tiempo promedio</p>
+                    <h2 id="tiempo-promedio-espera">0 <span>min</span></h2>
+                    <p class="subtitulo-stat">de espera general</p>
+                </div>
+            </div>
+
+            <div class="card-stat" id="card-total">
+                <div class="icono-stat" id="icono-total">
+                    <img src="./img/grupo.png" alt="Total hoy">
+                </div>
+                <div class="texto-stat">
+                    <p class="titulo-stat">Total hoy</p>
+                    <h2 id="total-hoy">0</h2>
+                    <p class="subtitulo-stat">turnos</p>
+                </div>
+            </div>
         </div>
 
         <div id="fila-panel">
 
             <div id="cola">
-                <h2>Cola de espera</h2>
+                <h2 id="titulo-cola">Cola de espera</h2>
                 <table id="tabla-cola">
                     <thead>
                         <tr>
                             <th>Posición</th>
                             <th>Código</th>
                             <th>Paciente</th>
+                            <th>Tiempo de Espera</th>
                             <th>Estado</th>
                         </tr>
                     </thead>
@@ -61,6 +111,7 @@
 
         </div>
     </div>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="../controlador/TrabajadorController.js"></script>
 </body>

@@ -31,6 +31,7 @@ function verificarSesion(){
 
         $('#nombre-trabajador').text(respuesta.nombre);
         $('#area-trabajador').text(respuesta.nombreArea);
+        $('#titulo-cola').text("Cola de espera en " + respuesta.nombreArea);
         idArea = respuesta.idArea;
         cargarTurnoActual()
         cargarCola();
@@ -56,20 +57,20 @@ function cargarCola(){
                 if(i == 0){
                     salida += `
                         <tr id="primera-fila">
-                            <td> <span class="possiciones">${i+1}</span></td>
-                            <td>${respuesta[i]['codigo']}</td>
+                            <td> <div id="primera-pos" class="possiciones">${i+1}</div></td>
+                            <td id="primer-codigo">${respuesta[i]['codigo']}</td>
                             <td>${respuesta[i]['nombre']}</td>
                             <td>${formatear(respuesta[i]['tiempoEspera'])}</td>
-                            <td><span class="estados" id="siguiente-estado">${respuesta[i]['estado']}</span></td>
+                            <td><div class="estados" id="primer-estado"> Siguiente </div></td>
                         </tr>
                     `;
                 } else {
                     salida += `<tr>
-                            <td> <span class="possiciones">${i+1}</span></td>
-                            <td> <span id='siguiente-codigo'>${respuesta[i]['codigo']}</span></td>
+                            <td> <div class="possiciones">${i+1}</div></td>
+                            <td> <div id='siguiente-codigo'>${respuesta[i]['codigo']}</div></td>
                             <td>${respuesta[i]['nombre']}</td>
                             <td>${formatear(respuesta[i]['tiempoEspera'])}</td>
-                            <td><span class="estados" id="siguiente-estado">${respuesta[i]['estado']}</span></td>
+                            <td><div class="estados" id="siguiente-estado">${respuesta[i]['estado']}</div></td>
                         </tr>`
                 }
             }
@@ -105,16 +106,19 @@ function cargarTurnoActual(){
 function mostrarAcciones(info){
     let seleciones = idArea;
     let salida = `
+        <h2>Turno actual</h2>
         <div id="nombre-paciente">
-        <h2>${info['codigo']}</h2>
-        <h4>${info['nombre']}</h4>
+            <div id="info-paciente">
+                <h2>${info['codigo']}</h2>
+                <h4>${info['nombre']}</h4>
+            </div>
         </div>
-        <label for="input-observaciones">Obersvaciones (opcional)</label>
-        <input type="text" name="observaciones" id="input-observaciones">
-        <label for="areas">Destino (selecione el área a derivar)</label>
-        <select id="areas">
-            ${opcionesArea(seleciones)}
-        </select>
+            <label for="input-observaciones">Obersvaciones (opcional)</label>
+            <input type="text" name="observaciones" id="input-observaciones">
+            <label for="areas">Destino (selecione el área a derivar)</label>
+            <select id="areas">
+                ${opcionesArea(seleciones)}
+            </select>
         <div id="btn-opciones">
             <button id="derivar">Derivar</button>
             <button id="finalizar">Finalizar</button>
@@ -217,3 +221,18 @@ setInterval(function(){
     cargarCola();
 }, 5000);
 
+
+setInterval(function () {
+    const ahora = new Date();
+
+    const dia = ahora.getDate();         
+    const mes = ahora.getMonth() + 1;    
+    const año = ahora.getFullYear();     
+
+    const horas = ahora.getHours();      
+    const minutos = ahora.getMinutes();  
+    const segundos = ahora.getSeconds(); 
+
+    $('#fecha').text(`Fecha: ${dia}/${mes}/${año}`)
+    $('#hora').text(`Hora: ${horas}:${minutos}`)
+}, 1000)

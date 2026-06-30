@@ -30,6 +30,15 @@ if($accion == 1){
     $resultado = derivar($conexion, $idArea, $idTrabajador, $idAreaDestino, $observacion);
 
     echo json_encode($resultado);
+} else if($accion == 6){
+    $estadisticas = array();
+
+    array_push($estadisticas, obtenerEnEspera($conexion, $idArea));
+    array_push($estadisticas, obtenerAtendidosHoy($conexion, $idArea));
+    array_push($estadisticas, obtenerTiempoPromedio($conexion, $idArea));
+    array_push($estadisticas, obtenerTotalHoy($conexion, $idArea));
+    
+    echo json_encode($estadisticas);
 }
 
 function obtenerCola($conexion, $idArea){
@@ -105,6 +114,38 @@ function derivar($conexion, $idArea, $idTrabajador, $idAreaDestino, $observacion
     $sql = "INSERT INTO `historial_atencion` (`id_tiquete`, `id_area`, `estado`) VALUES ('$idTiquete', '$idAreaDestino', 'En Espera')";
     mysqli_query($conexion, $sql);
     return ["exito" => true];
+}
+
+function obtenerEnEspera($conexion, $idArea){
+    $sql = "SELECT COUNT(*) as total FROM historial_atencion 
+    WHERE id_area = ". $idArea ." AND estado = 'En Espera'";
+    $fila = mysqli_fetch_array(mysqli_query($conexion, $sql));
+    return $fila['total'];
+}
+
+function obtenerAtendidosHoy($conexion, $idArea){
+    $sql = "SELECT COUNT(*) as total FROM historial_atencion 
+    WHERE id_area = ". $idArea ." AND estado = 'Finalizado' 
+    AND DATE(fecha_fin_atencion) = CURDATE()";
+    $fila = mysqli_fetch_array(mysqli_query($conexion, $sql));
+    return $fila['total'];
+}
+
+function obtenerTiempoPromedio($conexion, $idArea){
+    $sql = "SELECT AVG(TIMESTAMPDIFF(MINUTE, fecha_creacion, fecha_inicio_atencion)) as promedio 
+    FROM historial_atencion 
+    WHERE id_area = ". $idArea ." AND estado = 'Finalizado' 
+    AND DATE(fecha_fin_atencion) = CURDATE()";
+    $fila = mysqli_fetch_array(mysqli_query($conexion, $sql));
+    return round($fila['promedio'] ?? 0);
+}
+
+function obtenerTotalHoy($conexion, $idArea){
+    $sql = "SELECT COUNT(*) as total FROM historial_atencion 
+    WHERE id_area = ". $idArea ." 
+    AND DATE(fecha_creacion) = CURDATE()";
+    $fila = mysqli_fetch_array(mysqli_query($conexion, $sql));
+    return $fila['total'];
 }
 
 ?>
